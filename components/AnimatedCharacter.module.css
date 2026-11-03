@@ -1,0 +1,55 @@
+.stage {
+  --skin-light:#d4eda8; --skin-base:#b1d384; --face-ink:#254633;
+  --highlight:#fff; --blush:#e7a999; --tear:#86bfd2;
+  position:relative; display:grid; place-items:center; isolation:isolate;
+  flex:1; min-height:160px; width:100%;
+  /* Scale the entire face together, including on short landscape screens. */
+  font-size:clamp(.65px,min(.28vw,.19dvh),1.45px);
+}
+.halo { position:absolute; width:280em; height:280em; border-radius:50%; background:radial-gradient(circle,var(--soft),transparent 70%); z-index:-1; }
+.body { position:relative; width:190em; height:183em; background:linear-gradient(135deg,var(--skin-light) 15%,var(--skin-base)); border-radius:46% 48% 43% 44%; box-shadow:inset -10em -12em 25em #25463312,inset 6em 7em 16em #ffffff33; transform-origin:bottom center; animation:breathe 4s ease-in-out infinite; }
+.shine { position:absolute; top:21em; left:29em; width:42em; height:18em; border-radius:50%; background:var(--highlight); opacity:.24; transform:rotate(-30deg); }
+.face { position:absolute; top:66em; left:35em; width:120em; height:87em; transition:transform .25s; }
+.eyes { display:flex; justify-content:space-between; padding:0 13em; }
+.eye { position:relative; width:18em; height:29em; border-radius:15em; background:var(--face-ink); animation:blink 5.3s infinite; transform-origin:center; transition:height .2s; }
+.eye i { position:absolute; width:5em; height:7em; top:5em; left:4em; border-radius:50%; background:var(--highlight); }
+.brows { display:flex; justify-content:space-between; position:absolute; top:-14em; width:100%; padding:0 10em; opacity:0; transition:opacity .2s; }
+.brows b { height:4em; width:23em; background:var(--face-ink); border-radius:50%; transform:rotate(-15deg); }
+.brows b:last-child { transform:rotate(15deg); }
+.mouth { position:absolute; top:43em; left:44em; width:32em; height:16em; border:4em solid var(--face-ink); border-top:0; border-radius:0 0 25em 25em; transition:background .2s; }
+.cheek { position:absolute; top:31em; width:25em; height:11em; border-radius:50%; background:var(--blush); opacity:.7; }
+.left { left:-3em; } .right { right:-3em; }
+.tear { display:none; position:absolute; top:27em; right:15em; width:9em; height:17em; border-radius:60% 40% 60% 50%; background:var(--tear); }
+.shadow { position:absolute; top:calc(50% + 110em); width:125em; height:16em; border-radius:50%; background:var(--ink); opacity:.09; filter:blur(4em); }
+.stage[data-emotion=happy] .eye,.stage[data-emotion=laugh] .eye,.stage[data-emotion=calm] .eye { height:15em; background:transparent; border-top:6em solid var(--face-ink); border-radius:50% 50% 0 0; animation:none; }
+.stage[data-emotion=calm] .eye { transform:rotate(180deg); }
+.stage[data-emotion=happy] .eye i,.stage[data-emotion=laugh] .eye i,.stage[data-emotion=calm] .eye i { display:none; }
+.stage[data-emotion=laugh] .mouth { height:25em; top:36em; background:var(--face-ink); }
+.stage[data-emotion=laugh] .body { animation:happy 1.2s ease-in-out infinite; }
+.stage[data-emotion=empathy] .eye { width:23em; height:33em; }
+.stage[data-emotion=empathy] .eye i { width:9em; height:10em; }
+.stage[data-emotion=empathy] .brows,.stage[data-emotion=sad] .brows { opacity:1; }
+.stage[data-emotion=sad] .mouth { transform:rotate(180deg); height:10em; top:48em; }
+.stage[data-emotion=sad] .tear { display:block; }
+.stage[data-emotion=surprised] .mouth { border:0; border-radius:50%; background:var(--face-ink); width:18em; left:51em; height:23em; }
+.stage[data-emotion=surprised] .eye { height:36em; }
+.stage[data-phase=listening] .face { transform:translateY(-5em); }
+.stage[data-phase=listening] .body { animation:listen 2.8s ease-in-out infinite; }
+.stage[data-phase=listening] .eye { height:35em; background:var(--face-ink); border:0; border-radius:15em; animation:blink 5.3s infinite; transform:none; }
+.stage[data-phase=listening] .eye i { display:block; }
+.stage[data-phase=listening] .mouth { border:4em solid var(--face-ink); border-top:0; border-radius:0 0 25em 25em; width:18em; left:51em; height:9em; top:49em; background:transparent; transform:none; }
+.stage[data-phase=thinking] .body { animation:think 3s ease-in-out infinite; }
+.stage[data-phase=thinking] .face { transform:translate(8em,-4em); }
+.stage[data-phase=thinking] .brows,.stage[data-emotion=thinking] .brows { opacity:1; }
+.stage[data-emotion=thinking] .mouth { border:0; background:var(--face-ink); width:17em; height:5em; left:58em; top:48em; border-radius:8em; transform:rotate(-12deg); }
+.stage[data-phase=speaking] .mouth { border:0; top:43em; background:var(--face-ink); border-radius:50%; transform:none; animation:talk .62s infinite; }
+.stage[data-phase=speaking] .body { animation:talkBody 1.4s ease-in-out infinite; }
+@keyframes blink { 0%,41%,45%,69%,73%,100% { transform:scaleY(1); } 43%,71% { transform:scaleY(.08); } }
+@keyframes breathe { 0%,100% { transform:translateY(2em) scale(1); } 50% { transform:translateY(-5em) scale(1.025,1.035); } }
+@keyframes listen { 0%,100% { transform:rotate(-4deg) translateY(-3em); } 50% { transform:rotate(-2deg) translateY(-7em); } }
+@keyframes think { 0%,100% { transform:rotate(7deg); } 50% { transform:rotate(10deg) translateY(-4em); } }
+@keyframes talk { 0%,100% { height:8em; width:23em; left:49em; } 24% { height:25em; width:27em; left:47em; } 49% { height:13em; width:34em; left:43em; } 75% { height:20em; width:22em; left:49em; } }
+@keyframes talkBody { 0%,100% { transform:translateY(0) rotate(-1deg); } 50% { transform:translateY(-5em) rotate(2deg); } }
+@keyframes happy { 0%,100% { transform:translateY(0) rotate(-3deg); } 50% { transform:translateY(-10em) rotate(3deg); } }
+@media(prefers-color-scheme:dark) { .stage { --skin-light:#c9e5a4; --skin-base:#8fb56e; --face-ink:#1c3929; --highlight:#eff8e5; --blush:#d69b88; } }
+@media(prefers-reduced-motion:reduce) { .stage * { animation:none!important; transition:none!important; } }

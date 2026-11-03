@@ -1,0 +1,38 @@
+# Dependensi dan hasil build
+node_modules/
+.next/
+.next-api/
+out/
+build/
+dist/
+coverage/
+.vercel/
+*.tsbuildinfo
+
+# Rahasia dan konfigurasi lokal; template aman tetap disertakan
+.env*
+!.env.example
+*.pem
+*.key
+.claude/
+.env.local
+
+# Log dan berkas sementara
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.tmp
+*.temp
+mode-debug.png
+playwright-report/
+test-results/
+chromium_cli/
+
+# Metadata OS dan editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/

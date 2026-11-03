@@ -1,0 +1,26 @@
+.stage {
+  position:relative; isolation:isolate; flex:1; min-height:160px;
+  width:100%; display:grid; place-items:center; padding:18px;
+}
+.portrait {
+  position:relative; width:clamp(120px,40vmin,260px); aspect-ratio:1;
+  border-radius:50%; border:5px solid var(--surface); background:var(--surface);
+  box-shadow:0 0 0 1px var(--line),0 12px 30px #00000012;
+  animation:breathe 4s ease-in-out infinite;
+}
+.photo { display:block; width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.halo {
+  position:absolute; width:clamp(150px,46vmin,300px); aspect-ratio:1;
+  border:1px solid var(--line); border-radius:50%; z-index:-1;
+  background:radial-gradient(circle,var(--soft),transparent 72%);
+}
+.stage[data-phase=listening] .halo { border-color:var(--accent); animation:listen 2s ease-in-out infinite; }
+.stage[data-phase=thinking] .portrait { animation:thinking 3s ease-in-out infinite; }
+.stage[data-phase=speaking] .halo { border-color:var(--accent); animation:speaking 1.1s ease-in-out infinite; }
+.stage[data-phase=speaking] .portrait { animation:nod 1.5s ease-in-out infinite; }
+@keyframes breathe { 50% { transform:translateY(-4px); } }
+@keyframes thinking { 50% { transform:rotate(2deg); } }
+@keyframes listen { 50% { transform:scale(1.05); opacity:.5; } }
+@keyframes speaking { 50% { transform:scale(1.1); opacity:.35; } }
+@keyframes nod { 50% { transform:translateY(-3px) scale(1.015); } }
+@media(prefers-reduced-motion:reduce) { .stage * { animation:none!important; } }
